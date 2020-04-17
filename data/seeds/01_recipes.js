@@ -1,17 +1,8 @@
 
-exports.seed = function(knex) {
+exports.seed = function(knex, Promise) {
   return knex('recipes').insert([
-    {
-      recipe: 'calzone',
-      instructions: 'roll the dough, etc, etc.'
-    },
-    {
-      recipe: 'pizza',
-      instructions: 'roll the dough, etc, etc.'
-    },
-    {
-      recipe: 'pasta',
-      instructions: 'roll the dough, etc, etc.'
-    },
+    { recipe: 'calzone' },
+    { recipe: 'pizza' },
+    { recipe: 'pasta' },
   ]);
 };

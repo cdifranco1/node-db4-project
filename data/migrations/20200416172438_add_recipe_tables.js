@@ -5,7 +5,6 @@ exports.up = function(knex) {
       .createTable('recipes', (tbl) => {
         tbl.increments()
         tbl.string('recipe', 255).unique().notNullable()
-        tbl.text('instructions').notNullable()
       })
       .createTable('ingredients', (tbl) => {
         tbl.increments()
@@ -14,7 +13,7 @@ exports.up = function(knex) {
       })
       .createTable('recipe_ingredient', (tbl) => {
         tbl.increments()
-        tbl.integer('quantity').notNullable()
+        tbl.float('quantity').notNullable()
 
         //foreign keys
         tbl
@@ -34,6 +33,20 @@ exports.up = function(knex) {
           .onDelete('RESTRICT')
           .onUpdate('CASCADE')
       })
+      .createTable('instructions', (tbl) => {
+        tbl.increments()
+        tbl.text('instructions').notNullable()
+
+        //foreign keys
+        tbl
+          .integer('recipe_id')
+          .unsigned()
+          .notNullable()
+          .references('id')
+          .inTable('recipes')
+          .onDelete('RESTRICT')
+          .onUpdate('CASCADE')
+      })
     ) 
   }
 
@@ -43,5 +56,6 @@ exports.down = function(knex) {
       .dropTableIfExists('recipes')
       .dropTableIfExists('ingredients')
       .dropTableIfExists('recipe_ingredient')
+      .dropTableIfExists('instructions')
   )
 };
